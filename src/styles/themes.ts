@@ -14,8 +14,8 @@ export interface ThemeParams {
 const themes: ThemesParams = {
     ligth: {
         colors: {
-            background: '#121214',
-            text: '#e1e1e4',
+            background: '#f7f7f9',
+            text: '#334',
             primary: '#0099ff',
         },
     },

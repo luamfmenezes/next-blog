@@ -11,9 +11,19 @@ export default createGlobalStyle`
 
     body {
         background:${props => props.theme.colors.background};
-        color:${props => props.theme.colors.text};
         font: 400 14px 'Nunito', sans-serif;
-
     }
+
+    h1, p, button {
+        color:${props => props.theme.colors.text};
+        font-weight:400;
+        font-family: 'Nunito', sans-serif;
+    }
+
+    button{
+        outline:0;
+        cursor:pointer;
+    }
+
 
 `
