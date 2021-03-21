@@ -1,9 +1,12 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: 'https://newsapi.org/v2/everything',
 })
 
-export default api
+axios.defaults.params = {
+    q: 'bitcoin',
+    apiKey: '36d0e2c067b647c09af0a0c459da42ad',
+}
 
-//36d0e2c067b647c09af0a0c459da42ad
+export default api

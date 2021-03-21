@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    max-width: calc(50% - 32px);
     background: #fff;
-    width: 380px;
     box-shadow: 0 0 16px rgba(0, 0, 30, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
     img {
         width: 100%;
         height: 220px;
@@ -13,6 +16,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
     padding: 28px;
+    flex: 1;
     h1 {
         font-size: 21px;
         line-height: 31px;

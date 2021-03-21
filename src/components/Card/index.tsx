@@ -1,23 +1,34 @@
 import React from 'react'
 import { FaUserAstronaut } from 'react-icons/fa'
 import { Container, Content, Footer, User, UserIcon, UserInfo } from './styles'
+import { formatRelative } from 'date-fns'
 
-interface Card {
+interface Post {
     url: string
     title: string
     description: string
     content: string
     urlToImage: string
     author: string
+    publishedAt: string
 }
 
 interface CardParams {
     isLocal: boolean
-    card: Card
+    post: Post
 }
 
-const Card: React.FC<CardParams> = ({ card, isLocal }) => {
-    const { author, content, url, title, urlToImage, description } = card
+const Card: React.FC<CardParams> = ({ post, isLocal }) => {
+    const {
+        author,
+        content,
+        publishedAt,
+        title,
+        urlToImage,
+        description,
+    } = post
+
+    const formatedDate = formatRelative(new Date(publishedAt), new Date())
 
     return (
         <Container>
@@ -32,8 +43,8 @@ const Card: React.FC<CardParams> = ({ card, isLocal }) => {
                         <FaUserAstronaut color="#fff" size={16} />
                     </UserIcon>
                     <UserInfo>
-                        <h1>{author}</h1>
-                        <p>3 days ago</p>
+                        <h1>{author ? author : 'Anonymous'}</h1>
+                        <p>{formatedDate}</p>
                     </UserInfo>
                 </User>
                 <button>Read More</button>
