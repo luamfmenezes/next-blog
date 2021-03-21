@@ -1,19 +1,38 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
-import { Container } from './styles'
+import { Container, Logo, BackButton, WriteArticleButton } from './styles'
 
-import { FaPlus } from 'react-icons/fa'
+import { FaArrowLeft, FaPlus } from 'react-icons/fa'
 
-const Header: React.FC = () => {
+interface HeaderParams {
+    hasBackButton?: boolean
+}
+
+const Header: React.FC<HeaderParams> = ({ hasBackButton }) => {
+    const { back } = useRouter()
     return (
         <Container>
-            <img src="/images/logo.png" alt="logo" />
-            <button>
-                <p>Write a local article</p>
-                <div>
-                    <FaPlus />
-                </div>
-            </button>
+            <Logo>
+                <Link href="/">
+                    <img src="/images/logo.png" alt="logo" />
+                </Link>
+                {hasBackButton && (
+                    <BackButton onClick={back}>
+                        <FaArrowLeft />
+                    </BackButton>
+                )}
+            </Logo>
+
+            <Link href="/editPost">
+                <WriteArticleButton>
+                    <p>Write a local article</p>
+                    <div>
+                        <FaPlus />
+                    </div>
+                </WriteArticleButton>
+            </Link>
         </Container>
     )
 }

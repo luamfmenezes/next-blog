@@ -1,9 +1,11 @@
 import React from 'react'
-import { FaUserAstronaut } from 'react-icons/fa'
-import { Container, Content, Footer, User, UserIcon, UserInfo } from './styles'
-import { formatRelative } from 'date-fns'
+import { Container, Content, Footer, Controllers } from './styles'
+import Link from 'next/link'
+import { FaEdit } from 'react-icons/fa'
+import AuthorAndDateContainer from '../AuthorAndDateContainer'
 
 interface Post {
+    id?: string
     url: string
     title: string
     description: string
@@ -26,9 +28,9 @@ const Card: React.FC<CardParams> = ({ post, isLocal }) => {
         title,
         urlToImage,
         description,
+        url,
+        id,
     } = post
-
-    const formatedDate = formatRelative(new Date(publishedAt), new Date())
 
     return (
         <Container>
@@ -38,16 +40,22 @@ const Card: React.FC<CardParams> = ({ post, isLocal }) => {
                 <p>{description}</p>
             </Content>
             <Footer>
-                <User>
-                    <UserIcon>
-                        <FaUserAstronaut color="#fff" size={16} />
-                    </UserIcon>
-                    <UserInfo>
-                        <h1>{author ? author : 'Anonymous'}</h1>
-                        <p>{formatedDate}</p>
-                    </UserInfo>
-                </User>
-                <button>Read More</button>
+                <AuthorAndDateContainer
+                    author={author}
+                    publishedAt={publishedAt}
+                />
+                <Controllers>
+                    <Link href={isLocal ? `/posts/${id}` : url}>
+                        Read article
+                    </Link>
+                    {isLocal && (
+                        <Link href={{ pathname: '/editPost', query: { id } }}>
+                            <button>
+                                <FaEdit size={16} />
+                            </button>
+                        </Link>
+                    )}
+                </Controllers>
             </Footer>
         </Container>
     )

@@ -5,11 +5,7 @@ interface OptionParams {
 }
 
 export const Container = styled.div`
-    width: 140px;
-    height: 54px;
     display: flex;
-    border-radius: 8px;
-    overflow: hidden;
 `
 
 export const Option = styled.button<OptionParams>`
@@ -19,7 +15,7 @@ export const Option = styled.button<OptionParams>`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 0;
+    border: 1px solid #ddd;
     transition: 0.2s;
 
     svg {
@@ -31,9 +27,20 @@ export const Option = styled.button<OptionParams>`
         color: #999;
     }
 
+    &:nth-child(1) {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    &:nth-child(2) {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
     ${props =>
         props.selected &&
         css`
+            border-color: ${props => props.theme.colors.primary};
             background: #fff;
             svg {
                 color: ${props => props.theme.colors.primary};

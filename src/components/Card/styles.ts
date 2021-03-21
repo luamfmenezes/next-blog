@@ -1,12 +1,26 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+    from{
+        transform:scale(0.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+`
 
 export const Container = styled.div`
-    max-width: calc(50% - 32px);
+    width: calc(50% - 32px);
+    max-height: 660px;
     background: #fff;
     box-shadow: 0 0 16px rgba(0, 0, 30, 0.1);
     display: flex;
     flex-direction: column;
     margin: 16px;
+    animation: 0.5s ${fadeIn} both;
+    position: relative;
     img {
         width: 100%;
         height: 220px;
@@ -37,41 +51,27 @@ export const Footer = styled.div`
     justify-content: space-between;
     border-top: 1px solid #f5f5f8;
     padding: 28px 0;
-    button {
-        border: 0;
-        background-color: transparent;
+`
+
+export const Controllers = styled.div`
+    display: flex;
+    align-items: center;
+    a {
         padding: 0 8px;
+        margin-right: 8px;
         transition: 0.2s;
         &:hover {
             color: ${props => props.theme.colors.primary};
         }
     }
-`
-
-export const User = styled.div`
-    display: flex;
-    align-items: center;
-`
-
-export const UserIcon = styled.div`
-    background: linear-gradient(-135deg, #39aeeb, #6acbff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-    border-radius: 50%;
-`
-
-export const UserInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-left: 16px;
-    h1 {
-        font-size: 14px;
-    }
-    p {
-        font-size: 12px;
-        margin-top: 4px;
-        opacity: 0.6;
+    button {
+        transition: 0.2s;
+        border: 0;
+        border-radius: 4px;
+        margin: 8px;
+        background: transparent;
+        &:hover {
+            color: ${props => props.theme.colors.primary};
+        }
     }
 `

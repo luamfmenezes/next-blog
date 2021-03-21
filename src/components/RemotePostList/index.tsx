@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 import Card from '../Card'
+import Loading from '../Loading'
 
 import { Container } from './styles'
 
@@ -20,14 +21,17 @@ interface RemotePostListParams {
 
 const RemotePostList: React.FC<RemotePostListParams> = ({ initialPosts }) => {
     const [posts, setPosts] = useState<Post[]>(initialPosts)
+    const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
 
     useEffect(() => {
         const loadMorePosts = async () => {
+            setLoading(true)
             const params = {
-                q: 'bitcoin',
+                q: 'technology',
                 apiKey: '36d0e2c067b647c09af0a0c459da42ad',
                 page,
+                pageSize: 8,
             }
 
             const response = await api.get('/', {
@@ -36,24 +40,36 @@ const RemotePostList: React.FC<RemotePostListParams> = ({ initialPosts }) => {
 
             const newPosts = response.data.articles
             setPosts(oldPosts => [...oldPosts, ...newPosts])
+            setLoading(false)
         }
         if (page > 1) {
             loadMorePosts()
         }
     }, [page])
 
-    const handleNextPage = useCallback(() => {
-        if (page < 10) {
-            setPage(page + 1)
+    const handleNextPage = () => setPage(page + 1)
+
+    const handleScroll = () => {
+        const isBottom =
+            window.innerHeight + window.scrollY >=
+            document.body.offsetHeight - 1
+
+        if (isBottom) {
+            handleNextPage()
         }
-    }, [page])
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    })
 
     return (
         <Container>
             {posts.map(post => (
                 <Card post={post} isLocal={false} key={post.url} />
             ))}
-            <button onClick={handleNextPage}>Load more</button>
+            {loading && <Loading />}
         </Container>
     )
 }

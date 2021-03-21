@@ -1,31 +1,67 @@
-import Head from "next/head";
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import localPostsStore from '../../stores/localPosts'
+import Header from '../../components/Header'
 
-export default function Post({ postData }) {
-  return (
-    <div>
-      <Head>
-        <title>Post</title>
-      </Head>
-      <article>
-        <h1>Post</h1>
-      </article>
-    </div>
-  );
+import { Container, Content, Infos } from './styles'
+import AuthorAndDateContainer from '../../components/AuthorAndDateContainer'
+import Link from 'next/link'
+import { FaEdit } from 'react-icons/fa'
+
+interface Post {
+    id?: string
+    url: string
+    title: string
+    description: string
+    content: string
+    urlToImage: string
+    author: string
+    publishedAt: string
 }
 
-export async function getStaticPaths() {
-  const paths = [];
-  return {
-    paths,
-    fallback: false,
-  };
-}
+export default function Post() {
+    const router = useRouter()
+    const { id } = router.query
+    const [post, setPost] = useState<Post | undefined>()
 
-export async function getStaticProps({ params }) {
-  const postData = {};
-  return {
-    props: {
-      postData,
-    },
-  };
+    useEffect(() => {
+        if (id) {
+            const response = localPostsStore.findOne(id as string)
+            setPost(response)
+        }
+    }, [id])
+
+    return (
+        <Container>
+            <Head>
+                <title>Post</title>
+            </Head>
+            <Header hasBackButton />
+            <Content>
+                {post ? (
+                    <>
+                        <h1>{post.title}</h1>
+                        <Infos>
+                            <AuthorAndDateContainer
+                                author={post.author}
+                                publishedAt={post.publishedAt}
+                            />
+                            <Link
+                                href={{ pathname: '/editPost', query: { id } }}
+                            >
+                                <button>
+                                    <FaEdit />
+                                </button>
+                            </Link>
+                        </Infos>
+                        <img src={post.urlToImage} alt={post.title} />
+                        <article>{post.content}</article>
+                    </>
+                ) : (
+                    <p>Loading</p>
+                )}
+            </Content>
+        </Container>
+    )
 }

@@ -24,7 +24,8 @@ export const Content = styled.div`
     align-items: flex-start;
     h1 {
         margin-top: 24px;
-        font-size: 48px;
+        font-size: 40px;
+        line-height: 58px;
     }
 `
 
