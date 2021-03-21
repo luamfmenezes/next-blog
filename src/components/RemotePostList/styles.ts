@@ -4,5 +4,5 @@ export const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 32px;
+    padding-top: 12px;
 `

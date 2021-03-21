@@ -5,7 +5,7 @@ const api = axios.create({
 })
 
 axios.defaults.params = {
-    q: 'bitcoin',
+    q: 'technology',
     apiKey: '36d0e2c067b647c09af0a0c459da42ad',
 }
 

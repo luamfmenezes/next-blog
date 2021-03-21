@@ -11,6 +11,7 @@ interface Post {
     content: string
     urlToImage: string
     author: string
+    publishedAt: string
 }
 
 interface RemotePostListParams {
