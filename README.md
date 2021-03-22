@@ -1,7 +1,6 @@
 <h1 align="center">
  📑 Next Blog
 </h1>
-<p align="center">🚀 Blog created usign Next JS</p>
 
 ## Description
 
@@ -15,8 +14,6 @@ The objective of this project is to explore NestJS.
 4. Infinite scroll
 5. Post store
 6. API integration
-
-## Preview
 
 ## Installing and running the application
 
