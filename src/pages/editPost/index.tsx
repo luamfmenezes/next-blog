@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Header from '../../components/Header'
-
 import { Container, Content } from './styles'
-
 import localParamsStore from '../../stores/localPosts'
 import { useRouter } from 'next/router'
 
@@ -17,6 +15,7 @@ interface PostFormParams {
 
 const EditPost: React.FC = () => {
     const { query, push } = useRouter()
+
     const id = query.id as string
 
     const isUpdating = !!id

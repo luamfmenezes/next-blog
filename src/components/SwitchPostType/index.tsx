@@ -15,6 +15,7 @@ const SwitchPostType: React.FC<SwitchPostTypeParas> = ({ onChange, value }) => {
             <Option
                 onClick={() => onChange('remote')}
                 selected={value === 'remote'}
+                data-testid="swith-post-type-remote-option"
             >
                 <FaCloud />
                 <p>remote</p>
@@ -22,6 +23,7 @@ const SwitchPostType: React.FC<SwitchPostTypeParas> = ({ onChange, value }) => {
             <Option
                 selected={value === 'local'}
                 onClick={() => onChange('local')}
+                data-testid="swith-post-type-local-option"
             >
                 <FaLaptop />
                 <p>local</p>

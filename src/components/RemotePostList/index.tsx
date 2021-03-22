@@ -65,7 +65,7 @@ const RemotePostList: React.FC<RemotePostListParams> = ({ initialPosts }) => {
     })
 
     return (
-        <Container>
+        <Container data-testid="remote-post-list-container">
             {posts.map(post => (
                 <Card post={post} isLocal={false} key={post.url} />
             ))}
