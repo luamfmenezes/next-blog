@@ -1,3 +1,5 @@
+import { v4 } from 'uuid'
+
 export interface LocalPost {
     id: string
     url: string
@@ -29,12 +31,12 @@ class LocalPosts {
     }
 
     findOne(id: string): LocalPost {
-        const posts = JSON.parse(localStorage.getItem(this.storageKey))
+        const posts = JSON.parse(localStorage.getItem(this.storageKey) || '[]')
         return posts ? posts.find(el => el.id == id) : undefined
     }
 
     save(postData: SaveLocalPostParams): void {
-        const posts = localStorage.getItem(this.storageKey)
+        const posts = localStorage.getItem(this.storageKey) || '[]'
         const newPosts = JSON.parse(posts).map(el =>
             el.id == postData.id
                 ? { ...postData, date: new Date().toString() }
@@ -47,7 +49,7 @@ class LocalPosts {
         const post = {
             ...addPost,
             publishedAt: new Date().toString(),
-            id: Math.random(),
+            id: v4(),
         }
         const posts = localStorage.getItem(this.storageKey) || '[]'
         const newPosts = [...JSON.parse(posts), post]

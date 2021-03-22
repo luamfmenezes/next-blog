@@ -19,7 +19,7 @@ const Header: React.FC<HeaderParams> = ({ hasBackButton }) => {
                     <img src="/images/logo.png" alt="logo" />
                 </Link>
                 {hasBackButton && (
-                    <BackButton onClick={back}>
+                    <BackButton onClick={back} data-testid="header-back-button">
                         <FaArrowLeft />
                     </BackButton>
                 )}
